@@ -6,14 +6,21 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
+	"github.com/marceloaguero/apollo-federation-golang-example/service-profile/graph/data"
 	"github.com/marceloaguero/apollo-federation-golang-example/service-profile/graph/model"
 )
 
 // Profile is the resolver for the profile field.
 func (r *userResolver) Profile(ctx context.Context, obj *model.User) (*model.Profile, error) {
-	panic(fmt.Errorf("not implemented: Profile - profile"))
+	var res *model.Profile
+
+	for _, p := range data.Profiles {
+		if p.UserID == obj.ID {
+			res = p
+		}
+	}
+	return res, nil
 }
 
 // User returns UserResolver implementation.
